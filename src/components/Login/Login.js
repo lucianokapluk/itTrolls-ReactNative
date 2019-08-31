@@ -1,43 +1,47 @@
 import React from 'react';
-import {
-  Image,
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  SafeAreaView,
-  Button,
-} from 'react-native';
+import {Image, View, StyleSheet, TextInput, Button} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const Login = () => {
+  const user = (
+    <Icon name="user" size={40} color="#64676B" style={styles.logo} />
+  );
+  const pass = (
+    <Icon name="lock" size={40} color="#64676B" style={styles.logo} />
+  );
   const onPressLogin = () => {};
   return (
-    <View style={styles.container}>
-      <View style={styles.candado}>
-        <Image source={require('../../../assets/candado.png')} />
+  <View style={styles.container}> 
+      <View style={styles.logoLogin}>
+        <Image source={require('../../../assets/logoLogin.png')} />
       </View>
-      <SafeAreaView>
-        <Text style={styles.font}> Usuario </Text>
+      <View style={styles.inputContainer}>
+        {user}
         <TextInput
+          placeholder={'User'}
           style={styles.inputs}
           //onChangeText={text => this.setState({text})}
           //value={this.state.text}
         />
-        <Text style={styles.font}>Contraseña</Text>
+      </View>
+      <View style={styles.inputContainer}>
+        {pass}
         <TextInput
+          placeholder={'Password'}
           style={styles.inputs}
+          secureTextEntry={true}
           //onChangeText={text => this.setState({text})}
           //value={this.state.text}
         />
-        <View style={styles.button}>
-          <Button
-            onPress={onPressLogin}
-            title="Login"
-            color="#c51162"
-            accessibilityLabel="Learn more about this purple button"
-          />
-        </View>
-      </SafeAreaView>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button onPress={onPressLogin} title="Login" color="#98B5DB" />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button onPress={onPressLogin} title="Register" color="#98B5DB" />
+      </View>
     </View>
+
   );
 };
 
@@ -46,31 +50,34 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '95%',
     width: '95%',
-    marginVertical: 80,
+    marginTop: 40,
   },
-  candado: {
+
+  logoLogin: {
     flexDirection: 'row',
     justifyContent: 'center',
+    opacity: 0.5,
+    marginBottom: 10,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginTop: 10,
   },
   inputs: {
     height: 40,
-    width: '80%',
-    marginLeft: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    opacity: 0.5,
+    width: '90%',
+    marginLeft: 6,
+    fontFamily: 'Ubuntu-Light',
+    color: 'black',
+    borderBottomWidth: 1,
+    fontSize: 20,
     borderRadius: 10,
   },
-  font: {
-    marginLeft: 40,
-    color: 'white',
-    fontSize: 20,
-  },
-  button: {
-    paddingVertical: 10,
-    marginLeft: 40,
-    width: '80%',
+  buttonContainer: {
+    marginTop: 10,
+    marginLeft: 30,
+    width: '90%',
     borderRadius: 10,
   },
 });
