@@ -1,49 +1,58 @@
-import React from 'react';
-import {Image, View, StyleSheet, TextInput, Button} from 'react-native';
+import React, {Component} from 'react';
+import {
+  Image,
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const Login = () => {
-  const user = (
-    <Icon name="user" size={40} color="#64676B" style={styles.logo} />
-  );
-  const pass = (
-    <Icon name="lock" size={40} color="#64676B" style={styles.logo} />
-  );
-  const onPressLogin = () => {};
-  return (
-  <View style={styles.container}> 
-      <View style={styles.logoLogin}>
-        <Image source={require('../../../assets/logoLogin.png')} />
+class LoginScreen extends Component {
+  user = <Icon name="user" size={40} color="#64676B" style={styles.logo} />;
+  pass = <Icon name="lock" size={40} color="#64676B" style={styles.logo} />;
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.logoLogin}>
+          <TouchableOpacity>
+            <Image source={require('../../../assets/logoLogin.png')} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.inputContainer}>
+          {this.user}
+          <TextInput
+            placeholder={'User'}
+            style={styles.inputs}
+            //onChangeText={text => this.setState({text})}
+            //value={this.state.text}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          {this.pass}
+          <TextInput
+            placeholder={'Password'}
+            style={styles.inputs}
+            secureTextEntry={true}
+            //onChangeText={text => this.setState({text})}
+            //value={this.state.text}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => this.props.navigation.navigate('Home')}
+            title="Login"
+            color="#98B5DB"
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Register" color="#98B5DB" />
+        </View>
       </View>
-      <View style={styles.inputContainer}>
-        {user}
-        <TextInput
-          placeholder={'User'}
-          style={styles.inputs}
-          //onChangeText={text => this.setState({text})}
-          //value={this.state.text}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        {pass}
-        <TextInput
-          placeholder={'Password'}
-          style={styles.inputs}
-          secureTextEntry={true}
-          //onChangeText={text => this.setState({text})}
-          //value={this.state.text}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button onPress={onPressLogin} title="Login" color="#98B5DB" />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button onPress={onPressLogin} title="Register" color="#98B5DB" />
-      </View>
-    </View>
-
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -81,4 +90,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-export default Login;
+export default LoginScreen;
