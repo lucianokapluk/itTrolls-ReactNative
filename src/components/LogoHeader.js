@@ -3,13 +3,12 @@ import {View, StyleSheet, Text} from 'react-native';
 
 const LogoHeader = props => {
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.logo}>It Trolls</Text>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  container: {},
   logo: {
     marginLeft: 10,
     fontFamily: 'Channel',

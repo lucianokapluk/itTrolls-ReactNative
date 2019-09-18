@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
-
-export default class App extends Component {
+import {connect} from 'react-redux';
+import loginAction from '../../actions/loginAction';
+class Loading extends Component {
   componentDidMount() {
-    const user = 'luchoc';
-    if (user == 'luchoc') {
+    if (this.props.success) {
       this.props.navigation.navigate('App');
     } else {
       this.props.navigation.navigate('Login');
     }
   }
   render() {
+    console.log(this.props);
     return (
       <View style={{marginVertical: 200}}>
         <View style={styles.logoLogin}>
@@ -45,3 +46,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
 });
+
+const mapStateToProps = reducers => {
+  return reducers.loginReducer;
+};
+//mapstate(reducers) y actions
+export default connect(
+  mapStateToProps,
+  loginAction,
+)(Loading);

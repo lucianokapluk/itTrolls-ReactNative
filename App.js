@@ -1,171 +1,46 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 import React, {Component} from 'react';
 
-import {
-  createDrawerNavigator,
-  createStackNavigator,
-  createBottomTabNavigator,
-  createSwitchNavigator,
-} from 'react-navigation';
-
-import HomeScreen from './src/Screens/HomeScreen';
-import LoginScreen from './src/Screens/LoginScreen';
-import ProfileScreen from './src/Screens/ProfileScreen';
-import SettingScreen from './src/Screens/SettingScreen';
-import Header from './src/components/Header';
-import RegisterScreen from './src/Screens/RegisterScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import Loading from './src/components/Loading';
-import DrawerC from './src/components/DrawerComponent';
-import LogoHeader from './src/components/LogoHeader';
-
-const AuthNavigator = createStackNavigator(
-  {
-    Login: {
-      screen: LoginScreen,
-      navigationOptions: {
-        headerLeft: <LogoHeader />,
-        title: 'Login',
-        headerStyle: {backgroundColor: 'white', height: 45}, //color Header
-        headerTintColor: 'black', //color letra header
-        gesturesEnabled: true, // activa los slides
+import {Provider} from 'react-redux';
+import store from './store/store';
+import AppNavigator from './app-navigator';
+class App extends Component<props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: '',
+    };
+  }
+  componentDidMount() {
+    fetch('http://172.26.122.1:3010/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: 'tests@com ',
+        password: '123456',
+      }),
+      headers: {
+        'Content-Type': 'application/json',
       },
-      headerMode: 'float',
-    },
-    Register: {
-      screen: RegisterScreen,
-      navigationOptions: {
-        title: 'Register',
-        headerStyle: {backgroundColor: 'white', height: 45}, //color Header
-        headerTintColor: 'black', //color letra header
-        gesturesEnabled: true, // activa los slides
+    })
+      .then(response => response.json())
+      .catch(error => {
+        console.log(error, 'ACAAAA');
+      })
+      .then(data => {
+        this.setState({data: data.token.value});
+      });
+    store.dispatch({
+      type: 'LOAGEARSE',
+      payload: {
+        data: this.state.data,
       },
-      mode: 'card',
-    },
-  },
-  {
-    //opciones generales
-    cardStyle: {backgroundColor: 'white'},
-    headerLayoutPreset: 'center',
-  },
-);
-const Main = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        title: 'Home',
-      },
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        title: 'Perfil',
-      },
-    },
-    Settings: {
-      screen: SettingScreen,
-      navigationOptions: {
-        title: 'Ajustes',
-      },
-    },
-  },
-  {
-    navigationOptions: {
-      headerStyle: {backgroundColor: 'white', height: 45},
-      headerRight: <Header />,
-      headerLeft: <LogoHeader />,
-    },
-    headerLayoutPreset: 'center',
-    cardStyle: {backgroundColor: 'white'},
-  },
-);
-
-const BottomTabNavigator = createBottomTabNavigator(
-  {
-    Homes: {
-      screen: Main,
-      navigationOptions: {
-        showLabel: 'flase',
-        tabBarIcon: <Icon name="home" size={30} color="black" />,
-      },
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarIcon: <Icon name="user" size={30} color="black" />,
-      },
-    },
-    Settings: {
-      screen: SettingScreen,
-      navigationOptions: {
-        tabBarIcon: <Icon name="cogs" size={30} color="black" />,
-      },
-    },
-  },
-  {
-    tabBarOptions: {
-      showLabel: false,
-      style: {
-        backgroundColor: '#E8E2EF',
-        height: 40,
-      },
-    },
-  },
-);
-const WithModal = createStackNavigator(
-  {
-    Main: {
-      screen: BottomTabNavigator,
-    },
-  },
-  {
-    mode: 'modal',
-    headerMode: 'none',
-    cardStyle: {
-      backgroundColor: 'white',
-    },
-    navigationOptions: {
-      gesturesEnabled: true,
-    },
-  },
-);
-const Drawer = createDrawerNavigator(
-  {
-    Main: WithModal,
-    User: ProfileScreen,
-    Register: RegisterScreen,
-    Auth: AuthNavigator,
-  },
-  {
-    contentComponent: DrawerC,
-    drawerBackgroundColor: 'rgba(255,255,255,.9)',
-    contentOptions: {
-      activeTintColor: '#fff',
-      activeBackgroundColor: '#6b52ae',
-    },
-    drawerPosition: 'right',
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle',
-  },
-);
-const SwitchNavigator = createSwitchNavigator(
-  {
-    Loading: Loading,
-    App: Drawer,
-    Login: AuthNavigator,
-  },
-  {
-    initialRouteName: 'Loading',
-  },
-);
-
-export default SwitchNavigator;
+    });
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    );
+  }
+}
+export default App;

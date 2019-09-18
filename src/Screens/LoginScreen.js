@@ -7,43 +7,47 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import * as loginAction from '../../actions/loginAction';
+
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
+
+    state = {
+        email:'',
+        password:'',
+    };
 
   user = <Icon name="user" size={40} color="black" style={styles.logo} />;
   pass = <Icon name="lock" size={40} color="black" style={styles.logo} />;
 
-  handleLogin = () => {
-    fetch('http://172.26.122.1:3010/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: 'tests@com ',
-        password: '123456',
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .catch(error => {
-        console.log(error, 'ACAAAA');
-      })
-      .then(data => {
-        console.log(data.token.value);
-      });
+  handleLogin = (success) => {
+
+
+    const data = {
+      email: this.state.user,
+      password: this.state.password,
+    };
+    this.props.logearse(data);
+
+    if (success == true) {
+      this.props.navigation.navigate('App');
+
+    } else {
+      this.props.navigation.navigate('Login');
+      console.log('ussss');
+    }
+    //this.props.navigation.navigate('Loading');
   };
 
-
   render() {
+
     return (
       <View style={styles.container}>
         <View style={styles.logoLogin}>
-          <Text style={styles.fontLogin}>It Trolls</Text>
+          <Text style={styles.fontLogin}>It Trolls </Text>
         </View>
         <View style={styles.inputContainer}>
           {this.user}
@@ -56,6 +60,7 @@ class Login extends Component {
             //value={this.state.text}
           />
         </View>
+        {console.log(this.props.token)}
         <View style={styles.inputContainer}>
           {this.pass}
           <TextInput
@@ -72,7 +77,7 @@ class Login extends Component {
           <TouchableOpacity
             activeOpacity={0.85}
             style={styles.buttonContainer}
-            onPress={() => this.handleLogin()}>
+            onPress={() => this.handleLogin(this.props.success)}>
             <Text style={styles.textButton}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -82,6 +87,7 @@ class Login extends Component {
            >
             <Text style={styles.textButton}>Register</Text>
           </TouchableOpacity>
+
         </View>
       </View>
     );
@@ -145,4 +151,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-export default Login;
+const mapStateToProps = (reducers)=>{
+  return reducers.loginReducer;
+};
+export default connect(mapStateToProps,loginAction)(Login);

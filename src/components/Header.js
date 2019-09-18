@@ -5,7 +5,7 @@ import {withNavigation} from 'react-navigation';
 const Header = props => {
   return (
     <TouchableOpacity onPress={() => props.navigation.openDrawer('DrawerOpen')}>
-      <Icon name="bars" size={40} color="black" style={styles.logo} />
+      <Icon name="bars" size={35} color="black" style={styles.logo} />
     </TouchableOpacity>
   );
 };
