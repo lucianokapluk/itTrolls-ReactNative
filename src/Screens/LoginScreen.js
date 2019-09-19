@@ -32,7 +32,7 @@ class Login extends Component {
     };
     this.props.logearse(data);
 
-    if (success == true) {
+    if (success == undefined) {
       this.props.navigation.navigate('App');
 
     } else {

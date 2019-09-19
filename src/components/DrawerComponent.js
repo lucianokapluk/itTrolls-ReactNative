@@ -11,15 +11,21 @@ import {
 
 import {DrawerItems} from 'react-navigation';
 
-function DrawerC(props) {
+import LogoHeader from './LogoHeader';
+const DrawerC = props => {
+  console.log(props.items[0].routes[0].routes[0].key);
+  const items = props.items[0].routes[0].routes[0];
+
   return (
     <ScrollView>
       <SafeAreaView>
+        <LogoHeader />
+
         <DrawerItems {...props} />
       </SafeAreaView>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   logo: {
