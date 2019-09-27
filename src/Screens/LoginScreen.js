@@ -6,48 +6,66 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  Dimensions,Alert,ActivityIndicator,
 } from 'react-native';
-import * as loginAction from '../../actions/loginAction';
+import * as loginAction from '../../redux/actions/loginAction';
 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
+import Loader from '../components/Loader';
+import Error from './../components/Error';
+
 
 class Login extends Component {
-
     state = {
         email:'',
         password:'',
+        token:'',
+        success:'false',
+        error:'',
+        loading: false,
     };
-
   user = <Icon name="user" size={40} color="black" style={styles.logo} />;
   pass = <Icon name="lock" size={40} color="black" style={styles.logo} />;
-
-  handleLogin = (success) => {
-
-
+  handleLogin = async () => {
+    this.setState({loading:true});
     const data = {
-      email: this.state.user,
-      password: this.state.password,
+      email: 'kapluk@gmail.com',//this.state.user,
+      password: '123456',//this.state.password,
     };
-    this.props.logearse(data);
-
-    if (success == undefined) {
-      this.props.navigation.navigate('App');
-
-    } else {
-      this.props.navigation.navigate('Login');
-      console.log('ussss');
-    }
-    //this.props.navigation.navigate('Loading');
-  };
-
+    console.log(this.props);
+    await  fetch('http://172.26.122.1:3010/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(response => response.json())
+      .catch(error => {
+        this.setState({loading:false});
+        return error;
+      })
+      .then(token => {
+        this.setState({loading:false});
+        this.setState({success :token.success});
+        this.setState({error :token.error});
+        this.props.dispatch({
+          type:'SET_USER',
+          payload:{
+            token: token,
+          },
+        });
+      });
+      this.props.navigation.navigate('Loading');
+  }
   render() {
-
+    console.log(this.props);
+    console.disableYellowBox = true;
     return (
       <View style={styles.container}>
         <View style={styles.logoLogin}>
-          <Text style={styles.fontLogin}>It Trolls </Text>
+          <Text style={styles.fontLogin}>It Trolls</Text>
         </View>
         <View style={styles.inputContainer}>
           {this.user}
@@ -57,7 +75,7 @@ class Login extends Component {
             style={styles.inputs}
             onChangeText={user => this.setState({user})}
             //onChangeText={text => this.setState({text})}
-            //value={this.state.text}
+
           />
         </View>
         {console.log(this.props.token)}
@@ -69,15 +87,16 @@ class Login extends Component {
             style={styles.inputs}
             onChangeText={password => this.setState({password})}
             //onChangeText={text => this.setState({text})}
-            //value={this.state.text}
+
           />
         </View>
-
-        <View>
+        <Error style={styles.messageError} success={this.state.success} error={this.state.error}/>
+        <Loader loading={this.state.loading}/>
+        <View style={styles.con}>
           <TouchableOpacity
             activeOpacity={0.85}
             style={styles.buttonContainer}
-            onPress={() => this.handleLogin(this.props.success)}>
+            onPress={() => this.handleLogin()}>
             <Text style={styles.textButton}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -93,7 +112,7 @@ class Login extends Component {
     );
   }
 }
-
+const {wit} = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -101,14 +120,9 @@ const styles = StyleSheet.create({
     width: '95%',
     marginTop: 30,
   },
-  backgrounds: {
-    backgroundColor: 'white',
-    position: 'absolute',
-  },
   logoLogin: {
     flexDirection: 'row',
     justifyContent: 'center',
-
     marginBottom: 10,
   },
   fontLogin: {
@@ -130,18 +144,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 10,
   },
-  backgrounds: {
-    width: '100%',
-    height: '100%',
-  },
+  cont:{
+    flex:1,
+    flexDirection:'row',
 
+    justifyContent:'center',
+    width:wit,
+  },
   buttonContainer: {
+    alignSelf:'center',
     backgroundColor: '#A489BF',
     marginTop: 20,
-    marginHorizontal: '35%',
     height: 40,
     width: 100,
     borderRadius: 50,
+
   },
   textButton: {
     textAlign: 'center',
@@ -150,8 +167,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+
 });
 const mapStateToProps = (reducers)=>{
   return reducers.loginReducer;
 };
-export default connect(mapStateToProps,loginAction)(Login);
+export default connect(mapStateToProps)(Login);

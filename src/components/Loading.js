@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
-import loginAction from '../../actions/loginAction';
+import loginAction from '../../redux/actions/loginAction';
 class Loading extends Component {
   componentDidMount() {
-    if (this.props.success) {
-      this.props.navigation.navigate('App');
-    } else {
-      this.props.navigation.navigate('Login');
-    }
+    setTimeout(async () => {
+      if (this.props.token.success) {
+        await this.props.navigation.navigate('App');
+      } else {
+        await this.props.navigation.navigate('Login');
+      }
+    }, 100);
   }
   render() {
     console.log(this.props);
@@ -51,7 +53,4 @@ const mapStateToProps = reducers => {
   return reducers.loginReducer;
 };
 //mapstate(reducers) y actions
-export default connect(
-  mapStateToProps,
-  loginAction,
-)(Loading);
+export default connect(mapStateToProps)(Loading);

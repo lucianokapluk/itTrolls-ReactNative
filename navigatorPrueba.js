@@ -13,7 +13,7 @@ import {
   createBottomTabNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+
 import HomeScreen from './src/Screens/HomeScreen';
 import LoginScreen from './src/Screens/LoginScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
@@ -25,21 +25,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from './src/components/Loading';
 import DrawerC from './src/components/DrawerComponent';
 import LogoHeader from './src/components/LogoHeader';
-import DrawScreen from './src/components/DrawerComponent';
+import Loader from './src/components/Loader';
 
 const AuthNavigator = createStackNavigator(
   {
     Login: {
       screen: LoginScreen,
       navigationOptions: {
-        headerLeft: <LogoHeader />,
-
         title: 'Login',
-
-        headerStyle: {
-          backgroundColor: 'white',
-          height: 45,
-        }, //color Header
         headerTintColor: 'black', //color letra header
         //gesturesEnabled: true, // activa los slides
       },
@@ -49,7 +42,7 @@ const AuthNavigator = createStackNavigator(
       screen: RegisterScreen,
       navigationOptions: {
         title: 'Register',
-        headerStyle: {backgroundColor: 'white', height: 45}, //color Header
+
         headerTintColor: 'black', //color letra header
         //gesturesEnabled: true, // activa los slides
       },
@@ -60,17 +53,15 @@ const AuthNavigator = createStackNavigator(
     //opciones generales
     navigationOptions: {
       headerStyle: {
+        backgroundColor: 'white',
         height: 40,
-        flexDirection: 'row',
-        justifyContent: 'center',
       },
       headerTitleStyle: {
         flex: 1,
         textAlign: 'center',
       },
-      headerRight: <Header />,
-      headerLeft: <LogoHeader />,
     },
+
     cardStyle: {backgroundColor: 'white'},
   },
 );
@@ -266,7 +257,7 @@ const AppNavigator = createSwitchNavigator(
     Login: AuthNavigator,
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Loading',
   },
 );
 

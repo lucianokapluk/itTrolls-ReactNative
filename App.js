@@ -1,26 +1,19 @@
 import React, {Component} from 'react';
 
 import {Provider} from 'react-redux';
-import store from './store/store';
+import {store, persistor} from './redux/store/store';
 import AppNavigator from './navigatorPrueba';
-import {
-  createDrawerNavigator,
-  createStackNavigator,
-  createBottomTabNavigator,
-  createSwitchNavigator,
-} from 'react-navigation';
-class App extends Component<props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: '',
-    };
-  }
+import {PersistGate} from 'redux-persist/integration/react';
 
+import {Text} from 'react-native';
+import Loader from './src/components/Loader';
+class App extends Component<props> {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator />
+        <PersistGate loading={<Loader />} persistor={persistor}>
+          <AppNavigator />
+        </PersistGate>
       </Provider>
     );
   }
