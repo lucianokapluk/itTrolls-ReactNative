@@ -22,7 +22,6 @@ class Login extends Component {
         email:'',
         password:'',
         token:'',
-        success:'false',
         error:'',
         loading: false,
     };
@@ -31,11 +30,13 @@ class Login extends Component {
   handleLogin = async () => {
     this.setState({loading:true});
     const data = {
-      email: 'kapluk@gmail.com',//this.state.user,
-      password: '123456',//this.state.password,
+      email: 'kapluk@gmail.com',//this.state.email,
+      password:'123456',//this.state.password,
     };
+    //EMULADOR http://172.26.122.1:3010
+  //CELULAR http://http://192.168.0.108:3010
     console.log(this.props);
-    await  fetch('http://172.26.122.1:3010/auth/login', {
+    await  fetch('http:///192.168.0.108:3010/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -47,13 +48,14 @@ class Login extends Component {
         return error;
       })
       .then(token => {
+        console.log(token.value,'ISACA');
         this.setState({loading:false});
-        this.setState({success :token.success});
+
         this.setState({error :token.error});
         this.props.dispatch({
           type:'SET_USER',
           payload:{
-            token: token,
+            auth: token,
           },
         });
       });
@@ -73,7 +75,7 @@ class Login extends Component {
             placeholder={'User'}
             placeholderTextColor="#D1C4DF"
             style={styles.inputs}
-            onChangeText={user => this.setState({user})}
+            onChangeText={user => this.setState({email:user})}
             //onChangeText={text => this.setState({text})}
 
           />

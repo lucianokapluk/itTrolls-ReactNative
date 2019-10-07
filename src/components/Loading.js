@@ -5,15 +5,16 @@ import loginAction from '../../redux/actions/loginAction';
 class Loading extends Component {
   componentDidMount() {
     setTimeout(async () => {
-      if (this.props.token.success) {
+      if (this.props.auth.auth) {
         await this.props.navigation.navigate('App');
       } else {
         await this.props.navigation.navigate('Login');
       }
-    }, 100);
+    }, 10);
   }
   render() {
     console.log(this.props);
+    console.disableYellowBox = true;
     return (
       <View style={{marginVertical: 200}}>
         <View style={styles.logoLogin}>

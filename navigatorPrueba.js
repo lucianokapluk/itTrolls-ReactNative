@@ -26,6 +26,7 @@ import Loading from './src/components/Loading';
 import DrawerC from './src/components/DrawerComponent';
 import LogoHeader from './src/components/LogoHeader';
 import Loader from './src/components/Loader';
+import PostHome from './src/Screens/HomeSreen/PostHome';
 
 const AuthNavigator = createStackNavigator(
   {
@@ -74,6 +75,12 @@ const HomeStack = createStackNavigator(
         title: 'Home',
       },
     },
+    PostHome: {
+      screen: PostHome,
+      navigationOptions: {
+        title: 'Publicacion',
+      },
+    },
   },
   {
     navigationOptions: {
@@ -82,6 +89,10 @@ const HomeStack = createStackNavigator(
         flexDirection: 'row',
         justifyContent: 'center',
       },
+      gesturesEnabled: true,
+
+      headerMode: 'screen',
+      mode: 'card',
       headerTitleStyle: {
         flex: 1,
         textAlign: 'center',
@@ -204,8 +215,9 @@ const BottomTabNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       showLabel: false,
+      activeBackgroundColor: '#79727F',
       style: {
-        backgroundColor: '#E8E2EF',
+        backgroundColor: 'white',
         height: 40,
       },
     },
