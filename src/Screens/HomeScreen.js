@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Dark from './DarkStlye';
 import {
   Text,
   View,
@@ -12,64 +12,27 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import CardHome from '../components/CardHome';
+
+import LogoHeader from './../components/LogoHeader';
 const {wit} = Dimensions.get('window').width;
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Vendo Casa!',
     bathrooms: 0,
     bedrooms: 0,
-    pictures: [
-      'https://picsum.photos/id/145/800/800',
-      'https://picsum.photos/800/800',
-      'https://picsum.photos/id/146/800/800',
-    ],
     _id: '5d4899c202bee94e0cba1ddf',
     address: 'caseros 69',
     location: 'rio cuarto',
-    realState: '5d4896a5f647362ab46923e6',
+    realState: 'Inmobiliaria Gutierres',
     operation: [],
     services: [],
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-13ad53abb28ba',
-    title: 'CASA QUINTA!',
-    bathrooms: 0,
-    bedrooms: 0,
-    pictures: [
-      'https://picsum.photos/id/145/800/800',
-      'https://picsum.photos/800/800',
-      'https://picsum.photos/id/146/800/800',
-    ],
-    _id: '5d4899c202bee94e0cba1ddf',
-    address: 'caseros 69',
-    location: 'rio cuarto',
-    realState: '5d4896a5f647362ab46923e6',
-    operation: [],
-    services: [],
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-h13ad53abb28ba',
-    title: 'CASA QUINTA!',
-    bathrooms: 0,
-    bedrooms: 0,
-    pictures: [
-      'https://picsum.photos/id/145/800/800',
-      'https://picsum.photos/800/800',
-      'https://picsum.photos/id/146/800/800',
-    ],
-    _id: '5d4899c202bee94e0cba1ddf',
-    address: 'caseros 69',
-    location: 'rio cuarto',
-    realState: '5d4896a5f647362ab46923e6',
-    operation: [],
-    services: [],
+    pictures: [],
+    __v: 0,
   },
 ];
 
 class HomeScreen extends Component {
   render() {
-    console.log(this.props, 'REDOOOOOX');
+    console.log(this.props.navigation, 'REDOOOOOX');
     console.disableYellowBox = true;
     return (
       <ScrollView style={styles.scroll}>

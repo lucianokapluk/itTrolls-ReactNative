@@ -9,10 +9,13 @@ import {
 } from 'react-native';
 const {wit} = Dimensions.get('window').width;
 
-class PostHome extends Component<props> {
+class PostHome extends Component {
+  //console.log(this.props.navigation.state.params.id);
+  //console.log(propertys, 'REDOOOOOX');
+  static navigationOptions = {
+    title: 'Post ',
+  };
   render() {
-    console.log(this.props.navigation.state.params.id);
-    console.log(this.props, 'REDOOOOOX');
     console.disableYellowBox = true;
     return (
       <ScrollView style={styles.scroll}>

@@ -24,7 +24,7 @@ class DrawerC extends Component<props> {
   componentDidMount = () => {
     const id = this.props.auth.id;
     const header = {'x-access-token': this.props.auth.token.value};
-    fetch('http:///192.168.0.108:3010/users/' + id, {
+    fetch('http://172.26.122.1:3010/api/v1/users/' + id, {
       method: 'GET',
       headers: header,
     })
@@ -48,6 +48,7 @@ class DrawerC extends Component<props> {
     });
     this.props.navigation.navigate('Loading');
   };
+
   render() {
     return (
       <ScrollView>
@@ -59,7 +60,7 @@ class DrawerC extends Component<props> {
             <AvatarImage style={styles.avatar} />
           </View>
           <View style={styles.container}>
-            <Text>{this.props.user}</Text>
+            <Text style={styles.font}>{this.props.user}</Text>
           </View>
           <Button title="Logout" onPress={() => this.handleLogout()} />
         </SafeAreaView>
@@ -72,17 +73,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#137F7E',
+    backgroundColor: '#212121',
     justifyContent: 'center',
   },
   logo: {
     color: 'white',
     fontFamily: 'Channel',
   },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+  font: {
+    color: 'white',
   },
 });
 const mapStateToProps = reducers => {

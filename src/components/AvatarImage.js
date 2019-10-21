@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
   avatar: {
     width: 100,
     height: 100,
+    borderWidth: 2,
+    borderColor: '#f44336',
     borderRadius: 50,
   },
   avatarMsn: {
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 2,
     marginVertical: 2,
-    borderColor: '#64497F',
+    borderColor: '#f44336',
   },
 });
 

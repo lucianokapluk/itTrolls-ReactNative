@@ -1,8 +1,20 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native';
 import {connect} from 'react-redux';
-import loginAction from '../../redux/actions/loginAction';
+
+const ancho = Dimensions.get('window').width;
+const alto = Dimensions.get('window').height;
 class Loading extends Component {
+  static cardStyle = {
+    backgroundColor: '#212121',
+  };
+
   componentDidMount() {
     setTimeout(async () => {
       if (this.props.auth.auth) {
@@ -13,15 +25,17 @@ class Loading extends Component {
     }, 10);
   }
   render() {
-    console.log(this.props);
+    console.log(this.props, 'NAZI');
     console.disableYellowBox = true;
     return (
-      <View style={{marginVertical: 200}}>
-        <View style={styles.logoLogin}>
-          <Text style={styles.fontLogin}>It Trolls</Text>
-        </View>
-        <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#48137F" />
+      <View style={{backgroundColor: '#212121', width: ancho, height: alto}}>
+        <View style={{marginVertical: 200}}>
+          <View style={styles.logoLogin}>
+            <Text style={styles.fontLogin}>It Trolls</Text>
+          </View>
+          <View style={[styles.container, styles.horizontal]}>
+            <ActivityIndicator size="large" color="#f44336" />
+          </View>
         </View>
       </View>
     );
@@ -47,6 +61,7 @@ const styles = StyleSheet.create({
   fontLogin: {
     fontFamily: 'Channel',
     fontSize: 40,
+    color: 'white',
   },
 });
 

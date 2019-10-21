@@ -10,9 +10,9 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-class RegisterScreen extends Component {
-  user = <Icon name="user" size={40} color="black" style={styles.logo} />;
-  pass = <Icon name="lock" size={40} color="black" style={styles.logo} />;
+class CreateUserScreen extends Component {
+  user = <Icon name="user" size={40} color="white" style={styles.logo} />;
+  pass = <Icon name="lock" size={40} color="white" style={styles.logo} />;
 
   handleRegister = () => {
     fetch('http://172.26.122.1:3010/auth/register', {
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   fontLogin: {
+    color: 'white',
     fontFamily: 'Channel',
     fontSize: 40,
   },
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   buttonContainer: {
-    backgroundColor: '#A489BF',
+    backgroundColor: '#f44336',
     marginTop: 20,
     marginLeft: 30,
     height: 40,
@@ -140,4 +141,4 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-export default RegisterScreen;
+export default CreateUserScreen;

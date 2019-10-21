@@ -8,7 +8,7 @@ import {
   Text,
   Dimensions,Alert,ActivityIndicator,
 } from 'react-native';
-import * as loginAction from '../../redux/actions/loginAction';
+//import * as loginAction from '../../redux/actions/loginAction';
 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -30,13 +30,13 @@ class Login extends Component {
   handleLogin = async () => {
     this.setState({loading:true});
     const data = {
-      email: 'kapluk@gmail.com',//this.state.email,
+      email: 'kaplukluciano@gmail.com',//this.state.email,
       password:'123456',//this.state.password,
     };
     //EMULADOR http://172.26.122.1:3010
   //CELULAR http://http://192.168.0.108:3010
     console.log(this.props);
-    await  fetch('http:///192.168.0.108:3010/auth/login', {
+    await  fetch('http://172.26.122.1:3010/api/v1/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -48,7 +48,7 @@ class Login extends Component {
         return error;
       })
       .then(token => {
-        console.log(token.value,'ISACA');
+        console.log(token,'ISACA');
         this.setState({loading:false});
 
         this.setState({error :token.error});

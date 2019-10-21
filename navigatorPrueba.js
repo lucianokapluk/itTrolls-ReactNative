@@ -13,48 +13,36 @@ import {
   createBottomTabNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
-
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import HomeScreen from './src/Screens/HomeScreen';
 import LoginScreen from './src/Screens/LoginScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 import MessagesScreen from './src/Screens/MessagesScreen';
 import Header from './src/components/Header';
-import RegisterScreen from './src/Screens/RegisterScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import Loading from './src/components/Loading';
+import LoadingScreen from './src/components/Loading';
 import DrawerC from './src/components/DrawerComponent';
 import LogoHeader from './src/components/LogoHeader';
 import Loader from './src/components/Loader';
 import PostHome from './src/Screens/HomeSreen/PostHome';
-
+import CreateUserScreen from './src/Screens/CreateUserScreen';
+import Dark from './src/Screens/DarkStlye';
 const AuthNavigator = createStackNavigator(
   {
     Login: {
       screen: LoginScreen,
       navigationOptions: {
         title: 'Login',
-        headerTintColor: 'black', //color letra header
-        //gesturesEnabled: true, // activa los slides
+        headerTintColor: Dark.HeaderTitle,
       },
       headerMode: 'float',
     },
-    Register: {
-      screen: RegisterScreen,
-      navigationOptions: {
-        title: 'Register',
-
-        headerTintColor: 'black', //color letra header
-        //gesturesEnabled: true, // activa los slides
-      },
-      mode: 'card',
-    },
   },
   {
-    //opciones generales
     navigationOptions: {
       headerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: Dark.HeaderBackground,
         height: 40,
       },
       headerTitleStyle: {
@@ -62,8 +50,7 @@ const AuthNavigator = createStackNavigator(
         textAlign: 'center',
       },
     },
-
-    cardStyle: {backgroundColor: 'white'},
+    cardStyle: {backgroundColor: Dark.CardBackground},
   },
 );
 
@@ -73,12 +60,15 @@ const HomeStack = createStackNavigator(
       screen: HomeScreen,
       navigationOptions: {
         title: 'Home',
+        headerLeft: <LogoHeader />,
+        headerTintColor: Dark.HeaderTitle,
       },
     },
     PostHome: {
       screen: PostHome,
       navigationOptions: {
-        title: 'Publicacion',
+        title: 'POST',
+        headerTintColor: Dark.HeaderTitle,
       },
     },
   },
@@ -88,19 +78,15 @@ const HomeStack = createStackNavigator(
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',
+        backgroundColor: Dark.HeaderBackground,
       },
-      gesturesEnabled: true,
-
-      headerMode: 'screen',
-      mode: 'card',
       headerTitleStyle: {
         flex: 1,
         textAlign: 'center',
       },
       headerRight: <Header />,
-      headerLeft: <LogoHeader />,
     },
-    cardStyle: {backgroundColor: 'white'},
+    cardStyle: {backgroundColor: Dark.CardBackground},
   },
 );
 
@@ -108,11 +94,18 @@ const ProfileStack = createStackNavigator(
   {
     Profile: {
       screen: ProfileScreen,
-
       navigationOptions: {
         title: 'Profiless',
+        headerTintColor: Dark.HeaderTitle,
+        headerLeft: <LogoHeader />,
       },
-      headerLayoutPreset: 'center',
+    },
+    CreateUser: {
+      screen: CreateUserScreen,
+      navigationOptions: {
+        title: 'Create User',
+        headerTintColor: Dark.HeaderTitle,
+      },
     },
   },
   {
@@ -121,15 +114,16 @@ const ProfileStack = createStackNavigator(
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',
+        backgroundColor: Dark.HeaderBackground,
       },
       headerTitleStyle: {
         flex: 1,
         textAlign: 'center',
       },
       headerRight: <Header />,
-      headerLeft: <LogoHeader />,
+      //headerLeft: <LogoHeader />,
     },
-    cardStyle: {backgroundColor: 'white'},
+    cardStyle: {backgroundColor: Dark.CardBackground},
   },
 );
 const MessagesStack = createStackNavigator(
@@ -138,6 +132,7 @@ const MessagesStack = createStackNavigator(
       screen: MessagesScreen,
       navigationOptions: {
         title: 'Messages',
+        headerTintColor: Dark.HeaderTitle,
       },
     },
   },
@@ -147,6 +142,7 @@ const MessagesStack = createStackNavigator(
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',
+        backgroundColor: Dark.HeaderBackground,
       },
       headerTitleStyle: {
         flex: 1,
@@ -155,7 +151,7 @@ const MessagesStack = createStackNavigator(
       headerRight: <Header />,
       headerLeft: <LogoHeader />,
     },
-    cardStyle: {backgroundColor: 'white'},
+    cardStyle: {backgroundColor: Dark.CardBackground},
   },
 );
 /* const Main = createStackNavigator(
@@ -196,65 +192,48 @@ const BottomTabNavigator = createBottomTabNavigator(
     Home: {
       screen: HomeStack,
       navigationOptions: {
-        tabBarIcon: <Icon name="home" size={30} color="black" />,
+        tabBarIcon: <Icon name="home" size={25} color="white" />,
       },
     },
     Profile: {
       screen: ProfileStack,
+
       navigationOptions: {
-        tabBarIcon: <Icon name="user" size={30} color="black" />,
+        tabBarIcon: <Icon name="user" size={25} color="white" />,
       },
     },
     Messages: {
       screen: MessagesStack,
+      swipeEnable: true,
       navigationOptions: {
-        tabBarIcon: <Icon name="envelope" size={30} color="black" />,
+        tabBarIcon: <Icon name="envelope" size={25} color="white" />,
       },
     },
   },
   {
     tabBarOptions: {
-      showLabel: false,
-      activeBackgroundColor: '#79727F',
+      // shifting: true,
+      activeTintColor: '#f44336',
+      animationsEnabled: true,
       style: {
-        backgroundColor: 'white',
-        height: 40,
+        showLabel: false,
+        backgroundColor: Dark.TabBarBackground,
       },
-    },
-  },
-);
-
-const WithModal = createStackNavigator(
-  {
-    Main: {
-      screen: BottomTabNavigator,
-      ProfileStack,
-      MessagesStack,
-      HomeStack,
-    },
-  },
-  {
-    mode: 'card',
-    headerMode: 'none',
-
-    cardStyle: {
-      backgroundColor: 'white',
     },
   },
 );
 
 const Drawer = createDrawerNavigator(
   {
-    Main: WithModal,
+    Main: BottomTabNavigator,
   },
   {
     contentComponent: DrawerC,
-    drawerBackgroundColor: 'rgba(255,255,255,.9)',
+    drawerBackgroundColor: '#363532',
     contentOptions: {
       activeTintColor: '#fff',
       activeBackgroundColor: '#6b52ae',
     },
-
     drawerPosition: 'right',
     drawerOpenRoute: 'DrawerOpen',
     drawerCloseRoute: 'DrawerClose',
@@ -264,7 +243,7 @@ const Drawer = createDrawerNavigator(
 
 const AppNavigator = createSwitchNavigator(
   {
-    Loading: Loading,
+    Loading: LoadingScreen,
     App: Drawer,
     Login: AuthNavigator,
   },
