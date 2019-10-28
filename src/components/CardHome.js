@@ -9,7 +9,9 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
+
 import {withNavigation} from 'react-navigation';
+import Dark from './../Screens/DarkStlye';
 const {wit} = Dimensions.get('window').width;
 class CardHome extends Component {
   handlePost = id => {
@@ -20,7 +22,31 @@ class CardHome extends Component {
       <TouchableOpacity
         activeOpacity={0.85}
         onPress={() => this.handlePost(this.props.propertys.id)}>
-        <View style={styles.card} />
+        <View style={styles.card}>
+          <View style={styles.left}>
+            <Image
+              style={styles.image}
+              source={{uri: 'http://lorempixel.com/50/50/city/'}}
+            />
+          </View>
+          <View style={styles.center}>
+            <View style={styles.header}>
+              <Text style={styles.fontTitle}>Titulo</Text>
+            </View>
+            <View style={styles.footer}>
+              <Text style={styles.font}>
+                {' '}
+                {this.props.propertys.location +
+                  ', ' +
+                  this.props.propertys.address}{' '}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.fontPrice}>${this.props.propertys.price} </Text>
+          </View>
+        </View>
+        <View style={styles.line} />
       </TouchableOpacity>
     );
   }
@@ -29,22 +55,20 @@ class CardHome extends Component {
 export default withNavigation(CardHome);
 const styles = StyleSheet.create({
   card: {
-    height: 330,
+    height: 52,
     width: wit,
-    position: 'relative',
-
-    padding: 0,
+    flexDirection: 'row',
     marginTop: 0,
+    backgroundColor: '#5C5C5C',
+    borderColor: '#f44336',
+    borderWidth: 0.5,
+    marginBottom: 5,
   },
-  image: {
-    resizeMode: 'contain',
-  },
-  header: {
+
+  /*   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-
     height: 40,
-
     width: wit,
   },
   headerText: {
@@ -52,18 +76,33 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     fontSize: 15,
     fontFamily: 'Ubuntu-Light',
-  },
-  line: {
-    borderBottomWidth: 1,
-    borderColor: 'black',
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 0,
-    margin: 0,
-    height: 40,
+  }, */
 
-    width: wit,
+  left: {
+    borderRadius: 10,
+  },
+  center: {width: 220},
+  right: {
+    flex: 1,
+
+    justifyContent: 'center',
+  },
+  line: {},
+  footer: {
+    paddingTop: 5,
+  },
+  image: {
+    height: 50,
+    width: 50,
+  },
+  fontPrice: {
+    color: Dark.FontColor,
+    fontSize: 20,
+    fontFamily: 'Ubuntu-Light',
+  },
+  fontTitle: {
+    color: Dark.FontColor,
+    fontSize: 20,
+    fontFamily: 'Ubuntu-Light',
   },
 });

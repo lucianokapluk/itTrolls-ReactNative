@@ -16,13 +16,11 @@ class Loading extends Component {
   };
 
   componentDidMount() {
-    setTimeout(async () => {
-      if (this.props.auth.auth) {
-        await this.props.navigation.navigate('App');
-      } else {
-        await this.props.navigation.navigate('Login');
-      }
-    }, 10);
+    if (this.props.auth) {
+      this.props.navigation.navigate('App');
+    } else {
+      this.props.navigation.navigate('Login');
+    }
   }
   render() {
     console.log(this.props, 'NAZI');

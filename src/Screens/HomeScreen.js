@@ -15,30 +15,36 @@ import CardHome from '../components/CardHome';
 
 import LogoHeader from './../components/LogoHeader';
 const {wit} = Dimensions.get('window').width;
-const DATA = [
-  {
-    bathrooms: 0,
-    bedrooms: 0,
-    _id: '5d4899c202bee94e0cba1ddf',
-    address: 'caseros 69',
-    location: 'rio cuarto',
-    realState: 'Inmobiliaria Gutierres',
-    operation: [],
-    services: [],
-    pictures: [],
-    __v: 0,
-  },
-];
 
 class HomeScreen extends Component {
+  componentDidMount = () => {
+    const header = {'x-access-token': this.props.auth.token.value};
+    fetch('http://172.26.122.1:3010/api/v1/properties/', {
+      method: 'GET',
+      headers: header,
+    })
+      .then(response => response.json())
+      .catch(error => {
+        return error;
+      })
+      .then(properties => {
+        console.log(properties, 'ISACA');
+        this.props.dispatch({
+          type: 'SET_PROPERTIES',
+          payload: {properties},
+        });
+      });
+  };
+
   render() {
+    console.log(this.props);
     console.log(this.props.navigation, 'REDOOOOOX');
     console.disableYellowBox = true;
     return (
       <ScrollView style={styles.scroll}>
         <FlatList
           style={styles.card}
-          data={DATA}
+          data={this.props.properties}
           renderItem={({item}) => <CardHome propertys={item} />}
           keyExtractor={item => item.id}
         />

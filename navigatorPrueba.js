@@ -202,13 +202,13 @@ const BottomTabNavigator = createBottomTabNavigator(
         tabBarIcon: <Icon name="user" size={25} color="white" />,
       },
     },
-    Messages: {
+    /*     Messages: {
       screen: MessagesStack,
       swipeEnable: true,
       navigationOptions: {
         tabBarIcon: <Icon name="envelope" size={25} color="white" />,
       },
-    },
+    }, */
   },
   {
     tabBarOptions: {
