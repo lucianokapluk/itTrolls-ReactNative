@@ -12,16 +12,19 @@ import {
 
 import {withNavigation} from 'react-navigation';
 import Dark from './../Screens/DarkStlye';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const {wit} = Dimensions.get('window').width;
+
 class CardHome extends Component {
-  handlePost = id => {
-    this.props.navigation.navigate('PostHome', {id});
+  location = <Icon name="map-marker" size={15} color="white" />;
+  handlePost = data => {
+    this.props.navigation.navigate('PostHome', {data});
   };
   render() {
     return (
       <TouchableOpacity
         activeOpacity={0.85}
-        onPress={() => this.handlePost(this.props.propertys.id)}>
+        onPress={() => this.handlePost(this.props.propertys)}>
         <View style={styles.card}>
           <View style={styles.left}>
             <Image
@@ -34,8 +37,9 @@ class CardHome extends Component {
               <Text style={styles.fontTitle}>Titulo</Text>
             </View>
             <View style={styles.footer}>
+              {this.location}
               <Text style={styles.font}>
-                {' '}
+                {'  '}
                 {this.props.propertys.location +
                   ', ' +
                   this.props.propertys.address}{' '}
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     width: wit,
     flexDirection: 'row',
     marginTop: 0,
-    backgroundColor: '#5C5C5C',
+    backgroundColor: '#444444',
     borderColor: '#f44336',
     borderWidth: 0.5,
     marginBottom: 5,
@@ -89,7 +93,9 @@ const styles = StyleSheet.create({
   },
   line: {},
   footer: {
+    flexDirection: 'row',
     paddingTop: 5,
+    paddingLeft: 5,
   },
   image: {
     height: 50,
@@ -103,6 +109,7 @@ const styles = StyleSheet.create({
   fontTitle: {
     color: Dark.FontColor,
     fontSize: 20,
+    paddingLeft: 5,
     fontFamily: 'Ubuntu-Light',
   },
 });
