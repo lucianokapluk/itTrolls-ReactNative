@@ -30,8 +30,8 @@ class Login extends Component {
   handleLogin = async () => {
     this.setState({loading:true});
     const data = {
-      email: 'kaplukluciano@gmail.com',//this.state.email,
-      password:'123456',//this.state.password,
+      email: this.state.email,
+      password: this.state.password,
     };
     //EMULADOR http://172.26.122.1:3010
   //CELULAR http://http://192.168.0.108:3010

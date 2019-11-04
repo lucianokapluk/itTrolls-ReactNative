@@ -23,6 +23,9 @@ const loginReducer = (state = states, action) => {
     case 'SET_PROPERTIES': {
       return {...state, ...action.payload};
     }
+    case 'GET_USER': {
+      return {...state, ...action.payload};
+    }
     default:
       return {state};
   }

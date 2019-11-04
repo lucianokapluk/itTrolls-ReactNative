@@ -11,16 +11,25 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 class CreateUserScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
   user = <Icon name="user" size={40} color="white" style={styles.logo} />;
   pass = <Icon name="lock" size={40} color="white" style={styles.logo} />;
 
   handleRegister = () => {
-    fetch('http://172.26.122.1:3010/auth/register', {
+    const datas = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    fetch('http://172.26.122.1:3010/api/v1/auth/register', {
       method: 'post',
-      body: JSON.stringify({
-        email: 'tests@com ',
-        password: '123456',
-      }),
+      body: JSON.stringify(datas),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -46,7 +55,7 @@ class CreateUserScreen extends Component {
               placeholder={'User'}
               placeholderTextColor="#D1C4DF"
               style={styles.inputs}
-              //onChangeText={text => this.setState({text})}
+              onChangeText={user => this.setState({email: user})}
               //value={this.state.text}
             />
           </View>
@@ -57,7 +66,7 @@ class CreateUserScreen extends Component {
               placeholderTextColor="#D1C4DF"
               style={styles.inputs}
               secureTextEntry={true}
-              //onChangeText={text => this.setState({text})}
+              onChangeText={password => this.setState({password})}
               //value={this.state.text}
             />
           </View>
@@ -76,7 +85,7 @@ class CreateUserScreen extends Component {
             activeOpacity={0.85}
             style={styles.buttonContainer}
             onPress={() => this.handleRegister()}>
-            <Text style={styles.textButton}>Register</Text>
+            <Text style={styles.textButton}>Create!</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

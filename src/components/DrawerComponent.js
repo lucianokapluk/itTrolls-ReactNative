@@ -44,7 +44,7 @@ class DrawerC extends Component<props> {
   handleLogout = () => {
     this.props.dispatch({
       type: 'SET_USER',
-      payload: {auth: {auth: false}},
+      payload: {auth: false},
     });
     this.props.navigation.navigate('Loading');
   };

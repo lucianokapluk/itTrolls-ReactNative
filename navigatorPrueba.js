@@ -95,9 +95,10 @@ const ProfileStack = createStackNavigator(
     Profile: {
       screen: ProfileScreen,
       navigationOptions: {
-        title: 'Profiless',
+        title: 'Users',
         headerTintColor: Dark.HeaderTitle,
         headerLeft: <LogoHeader />,
+        headerRight: <Header />,
       },
     },
     CreateUser: {
@@ -105,6 +106,7 @@ const ProfileStack = createStackNavigator(
       navigationOptions: {
         title: 'Create User',
         headerTintColor: Dark.HeaderTitle,
+        headerMode: 'none',
       },
     },
   },
@@ -120,7 +122,7 @@ const ProfileStack = createStackNavigator(
         flex: 1,
         textAlign: 'center',
       },
-      headerRight: <Header />,
+
       //headerLeft: <LogoHeader />,
     },
     cardStyle: {backgroundColor: Dark.CardBackground},
@@ -195,7 +197,7 @@ const BottomTabNavigator = createBottomTabNavigator(
         tabBarIcon: <Icon name="home" size={25} color="white" />,
       },
     },
-    Profile: {
+    Users: {
       screen: ProfileStack,
 
       navigationOptions: {
