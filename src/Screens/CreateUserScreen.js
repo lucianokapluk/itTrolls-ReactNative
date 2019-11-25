@@ -14,8 +14,10 @@ class CreateUserScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
       email: '',
       password: '',
+      passwordConfirmation: '',
     };
   }
 
@@ -24,10 +26,12 @@ class CreateUserScreen extends Component {
 
   handleRegister = () => {
     const datas = {
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
+      passwordConfirmation: this.state.passwordConfirmation,
     };
-    fetch('http://172.26.122.1:3010/api/v1/auth/register', {
+    fetch('http://192.168.0.103:3010/api/v1/auth/register', {
       method: 'post',
       body: JSON.stringify(datas),
       headers: {
@@ -41,6 +45,7 @@ class CreateUserScreen extends Component {
       .catch(error => {
         console.log(error);
       });
+    console.log;
   };
   render() {
     return (
@@ -52,7 +57,17 @@ class CreateUserScreen extends Component {
           <View style={styles.inputContainer}>
             {this.user}
             <TextInput
-              placeholder={'User'}
+              placeholder={'Username'}
+              placeholderTextColor="#D1C4DF"
+              style={styles.inputs}
+              onChangeText={username => this.setState({username: username})}
+              //value={this.state.text}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            {this.user}
+            <TextInput
+              placeholder={'email'}
               placeholderTextColor="#D1C4DF"
               style={styles.inputs}
               onChangeText={user => this.setState({email: user})}
@@ -77,7 +92,9 @@ class CreateUserScreen extends Component {
               placeholderTextColor="#D1C4DF"
               style={styles.inputs}
               secureTextEntry={true}
-              //onChangeText={text => this.setState({text})}
+              onChangeText={passwordConfirmation =>
+                this.setState({passwordConfirmation})
+              }
               //value={this.state.text}
             />
           </View>

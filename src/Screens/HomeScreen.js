@@ -21,31 +21,7 @@ const {wit} = Dimensions.get('window').width;
 const handle = () => {
   console.log('anda');
 };
-const actions = [
-  {
-    text: 'Accessibility',
-    name: 'bt_accessibility',
-    position: 2,
-  },
-  {
-    text: 'Language',
 
-    name: 'bt_language',
-    position: 1,
-  },
-  {
-    text: 'Location',
-
-    name: 'bt_room',
-    position: 3,
-  },
-  {
-    text: 'Video',
-
-    name: 'bt_videocam',
-    position: 4,
-  },
-];
 const DATA = [
   {
     address: 'Constitucion 895',
@@ -73,8 +49,8 @@ const DATA = [
 
 class HomeScreen extends Component {
   componentDidMount = () => {
-    const header = {'x-access-token': this.props.auth.token.value};
-    fetch('http://172.26.122.1:3010/api/v1/properties/', {
+    const header = {'x-access-token': this.props.auth.token};
+    fetch('http://192.168.0.103:3010/api/v1/properties/', {
       method: 'GET',
       headers: header,
     })
@@ -92,13 +68,14 @@ class HomeScreen extends Component {
   };
 
   render() {
+    console.log(this.props.auth.token);
     console.log(this.props);
     console.log(this.props.navigation, 'REDOOOOOX');
     console.disableYellowBox = true;
     return (
       <View style={styles.content}>
         <FlatList
-          data={DATA}
+          data={this.props.properties}
           renderItem={({item}) => <CardHome propertys={item} />}
           keyExtractor={item => item.id}
         />
@@ -107,8 +84,8 @@ class HomeScreen extends Component {
           showBackground={false}
           color={'#C85A52'}
           buttonSize={50}
-          onPressItem={name => {
-            console.log(`selected button: ${name}`);
+          onPressMain={() => {
+            this.props.navigation.navigate('newPost');
           }}
         />
       </View>

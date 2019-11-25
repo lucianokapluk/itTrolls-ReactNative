@@ -8,13 +8,15 @@ import {
   Dimensions,
   TouchableOpacity,
   Linking,
+  Image,
   Platform,
 } from 'react-native';
 
 import openMap from 'react-native-open-maps';
-const {wit} = Dimensions.get('window').width;
+const wit = Dimensions.get('window').width;
 import {SliderBox} from 'react-native-image-slider-box';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Carrousel from './../../components/Carrusel';
 const openMaps = direccion => {
   console.log('open directions');
   openMap({query: direccion});
@@ -26,10 +28,6 @@ class PostHome extends Component {
   static navigationOptions = {
     title: 'Post ',
   };
-  image = [
-    'http://lorempixel.com/800/800/city/',
-    'http://lorempixel.com/800/800/city/',
-  ];
 
   render() {
     const data = this.props.navigation.getParam('data');
@@ -37,7 +35,8 @@ class PostHome extends Component {
     console.disableYellowBox = true;
     return (
       <ScrollView style={styles.scroll}>
-        <SliderBox images={this.image} sliderBoxHeight={400} />
+        <Carrousel />
+
         <View style={styles.footer}>
           <Text style={[styles.textTitulos, {color: '#5DFC83'}]}>
             ${data.price}

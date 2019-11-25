@@ -28,6 +28,7 @@ import Loader from './src/components/Loader';
 import PostHome from './src/Screens/HomeSreen/PostHome';
 import CreateUserScreen from './src/Screens/CreateUserScreen';
 import Dark from './src/Screens/DarkStlye';
+import NewPost from './src/Screens/HomeSreen/NewPost';
 const AuthNavigator = createStackNavigator(
   {
     Login: {
@@ -69,6 +70,15 @@ const HomeStack = createStackNavigator(
       navigationOptions: {
         title: 'POST',
         headerTintColor: Dark.HeaderTitle,
+      },
+    },
+    newPost: {
+      screen: NewPost,
+      navigationOptions: {
+        title: 'NewPost',
+        headerTintColor: Dark.HeaderTitle,
+        headerLeft: <LogoHeader />,
+        headerRight: <Header />,
       },
     },
   },

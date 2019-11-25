@@ -34,7 +34,7 @@ class CardHome extends Component {
           </View>
           <View style={styles.center}>
             <View style={styles.header}>
-              <Text style={styles.fontTitle}>Titulo</Text>
+              <Text style={styles.fontTitle}>{this.props.propertys.title}</Text>
             </View>
             <View style={styles.footer}>
               {this.location}

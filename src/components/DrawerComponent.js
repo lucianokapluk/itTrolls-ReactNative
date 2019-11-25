@@ -22,7 +22,7 @@ class DrawerC extends Component<props> {
   //EMULADOR http://172.26.122.1:3010
   //CELULAR http://http://192.168.0.108:3010
   componentDidMount = () => {
-    const id = this.props.auth.id;
+    /*     const id = this.props.auth.id;
     const header = {'x-access-token': this.props.auth.token.value};
     fetch('http://172.26.122.1:3010/api/v1/users/' + id, {
       method: 'GET',
@@ -38,7 +38,7 @@ class DrawerC extends Component<props> {
           type: 'SET_USER',
           payload: {user: user.email},
         });
-      });
+      }); */
   };
 
   handleLogout = () => {
@@ -60,7 +60,7 @@ class DrawerC extends Component<props> {
             <AvatarImage style={styles.avatar} />
           </View>
           <View style={styles.container}>
-            <Text style={styles.font}>{this.props.user}</Text>
+            <Text style={styles.font}>{this.props.auth.username}</Text>
           </View>
           <Button title="Logout" onPress={() => this.handleLogout()} />
         </SafeAreaView>

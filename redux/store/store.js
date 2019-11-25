@@ -9,6 +9,7 @@ const persistConfig = {
   key: 'root',
   storage,
 };
+
 //store recibe reducers and initial state
 //const store = createStore(reducer, {}, applyMiddleware(reduxThunk));
 const persistedReducer = persistReducer(persistConfig, reducer);

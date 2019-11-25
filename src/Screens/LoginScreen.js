@@ -30,13 +30,13 @@ class Login extends Component {
   handleLogin = async () => {
     this.setState({loading:true});
     const data = {
-      email: this.state.email,
+      username: this.state.email,
       password: this.state.password,
     };
     //EMULADOR http://172.26.122.1:3010
   //CELULAR http://http://192.168.0.108:3010
     console.log(this.props);
-    await  fetch('http://172.26.122.1:3010/api/v1/auth/login', {
+    await  fetch('http://192.168.0.103:3010/api/v1/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -52,10 +52,12 @@ class Login extends Component {
         this.setState({loading:false});
 
         this.setState({error :token.error});
+
         this.props.dispatch({
           type:'SET_USER',
           payload:{
             auth: token,
+
           },
         });
       });
@@ -101,13 +103,7 @@ class Login extends Component {
             onPress={() => this.handleLogin()}>
             <Text style={styles.textButton}>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.85}
-            style={styles.buttonContainer}
-            onPress={() => this.props.navigation.navigate('Register')}
-           >
-            <Text style={styles.textButton}>Register</Text>
-          </TouchableOpacity>
+
 
         </View>
       </View>
@@ -130,6 +126,7 @@ const styles = StyleSheet.create({
   fontLogin: {
     fontFamily: 'Channel',
     fontSize: 40,
+    color:'white',
   },
   inputContainer: {
     flexDirection: 'row',

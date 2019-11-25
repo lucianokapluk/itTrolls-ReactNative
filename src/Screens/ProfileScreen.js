@@ -55,7 +55,7 @@ class ProfileScreen extends Component {
   };
   handleGetUsers = () => {
     const header = {'x-access-token': this.props.auth.token.value};
-    fetch('http://172.26.122.1:3010/api/v1/users/', {
+    fetch('http://192.168.0.103:3010/api/v1/users/', {
       method: 'GET',
       headers: header,
     })
